@@ -15,4 +15,4 @@ def test_login_validation(login_in_driver):
         print(f"Error en la validación del login: {e}")
 
     finally:
-        time.sleep(3)    
+        time.sleep(2)    
