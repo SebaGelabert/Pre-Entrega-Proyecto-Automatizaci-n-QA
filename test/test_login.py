@@ -1,18 +1,20 @@
-import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from page.login_page import LoginPage
 
-def test_login_validation(login_in_driver): 
-    try:
-        driver = login_in_driver 
+def test_login_ok(driver):
+    login_page = LoginPage(driver)
 
-        assert "/inventory.html" in driver.current_url, (
-            "No ha redirigido a la página solicitada"
-        )        
+    login_page.loguin("standard_user", "secret_sauce")
 
-    except AssertionError as e:
-        print(f"Error en la validación del login: {e}")
+    assert"/inventory.html" in driver.current_url, "No se redirigió al inventario"
 
-    finally:
-        time.sleep(2)    
+def test_login_invalid_password(driver):
+    login_page = LoginPage(driver)
+
+    login_page.loguin("standard_user", "123456")
+
+    error = login_page.get_error_password()
+
+    assert"Epic sadface: You can only access '/cart.html' when you are logged in." in error
+
+
+
