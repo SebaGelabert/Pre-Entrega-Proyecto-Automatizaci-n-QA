@@ -1,20 +1,22 @@
 from page.login_page import LoginPage
 
+# login con datos reales
+
 def test_login_ok(driver):
     login_page = LoginPage(driver)
 
-    login_page.loguin("standard_user", "secret_sauce")
+    login_page.login("standard_user","secret_sauce")
 
-    assert"/inventory.html" in driver.current_url, "No se redirigió al inventario"
+    assert "/inventory.html" in driver.current_url, "No se redirigió al inventario"
+
+# login con datos falsos    
 
 def test_login_invalid_password(driver):
     login_page = LoginPage(driver)
 
-    login_page.loguin("standard_user", "123456")
+    login_page.login("standard_user","123456")
 
-    error = login_page.get_error_password()
+    error = login_page.get_error_password_message()
 
-    assert"Epic sadface: You can only access '/cart.html' when you are logged in." in error
-
-
+    assert "Epic sadface: Username and password do not match any user in this service" in error
 
