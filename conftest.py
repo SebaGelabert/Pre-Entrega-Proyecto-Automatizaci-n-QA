@@ -2,6 +2,8 @@ import pytest
 from selenium import webdriver
 from page.login_page import LoginPage
 from utils.data_reader import read_users_csv
+import pathlib 
+import pytest_html
 
 @pytest.fixture
 def driver():
@@ -24,3 +26,31 @@ def driver_logged(driver):
 
     return driver
 
+# genera archivo reporte error en caso de fallo en el test, con screenshot del error
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+
+    report = outcome.get_result()
+    if report.when == "call" and report.failed: 
+        driver = item.funcargs.get("driver") or item.funcargs.get("driver_logged")
+        
+        if driver:
+            target = pathlib.Path("screenshots")
+            target.mkdir(exist_ok=True)
+
+            file_name = target / f"{item.name}.png"
+            driver.save_screenshot(str(file_name))
+            
+            if hasattr(report, "extra"):
+                report.extra.append({
+                    "name": "screenshot",
+                    "format": "image/png",
+                    "content": str(file_name)
+                })
+
+            extras = getattr(report, "extras", [])
+            extras.append(pytest_html.extras.image(str(file_name)))
+
+            report.extra = extras
