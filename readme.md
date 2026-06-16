@@ -1,4 +1,4 @@
-## Proyecto de Automatizacion QA - Sebastián Gelabert.
+# Proyecto de Automatizacion QA - Sebastián Gelabert.
 
 ## Descripción:
 Proyecto de automatización de pruebas funcionales sobre el sitio SauceDemo (https://www.saucedemo.com/), 
@@ -8,17 +8,23 @@ desarrollado como parte de la cursada de QA Automation.
 El objetivo es validar los flujos principales de la aplicación mediante tests automatizados con las herramientas antes mencionadas, simulando el comportamiento de un usuario real en el navegador ingresando a dicho sitio.
 
 ## Tecnologías usadas:
-*Python
-*Selenium WebDriver
-*Pytest
-*Pytest HTML
-*Git
+-Python
+-Selenium WebDriver
+-Pytest
+-Requests
+-Pytest HTML
+-Logging
+-JSON
+-CSV
+-Git
+-GitHub
+
+## Patrón utilizado:
+Se implementó el patrón Page Object Model (POM) para separar la lógica de interacción con las páginas de los casos de prueba, esto permite un mejor mantenimiento y reutilización del código.
 
 ## Instalación
 
-`git clone https:....ruta archivo`
-
-Clonar el repositorio:
+-Clonar el repositorio:
 
 `git clone https://github.com/SebaGelabert/Pre-Entrega-Proyecto-Automatizaci-n-QA.git`
 
@@ -54,6 +60,25 @@ Clonar el repositorio:
 - También Crea, Obtiene y Elimina usuario.
 - Todo con Error Code.
 
+### Logging
+Se generan automáticamente archivos de log en la carpeta "logs/...", registrando:
+-Inicio de las pruebas.
+-Acciones realizadas.
+-Eventos importantes.
+-Errores encontrados durante la ejecución.
+
+### Capturas automáticas
+En caso de fallo de una prueba UI, se genera automáticamente una captura de pantalla del navegador en carpeta "screenshots/...".
+Las imágenes son incorporadas al reporte HTML para facilitar el análisis de errores.
+
+### Reportes HTML
+Los reportes HTML se generan automáticamente en archivo "report.html", incluyendo:
+-Tests ejecutados.
+-Tests aprobados y fallidos.
+-Tiempo de ejecución.
+-Detalle de errores.
+-Capturas de pantalla en caso de fallo.
+
 ## Ejecución de los tests
 
 ### Correr todos los tests:
@@ -65,5 +90,9 @@ py -m pytest test/ -s
 py -m pytest test/test_login.py -s
 py -m pytest test/test_inventory.py -s
 py -m pytest test/test_cart.py -s
+py -m pytest -v -s test/test_cart_json.py
+py -m pytest -v -s test/test_api.py
+py -m pytest -v test/test_login_csv.py
+py -m behave 
 
 Los reportes HTML se generan automáticamente en `report.html` al finalizar cada ejecución.
