@@ -1,7 +1,3 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import pytest
-
 from page.inventory_page import InventoryPage
 from page.login_page import LoginPage
 
