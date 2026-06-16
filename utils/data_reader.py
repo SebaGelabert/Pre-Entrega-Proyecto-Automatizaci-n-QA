@@ -1,6 +1,8 @@
 import csv
 import json
 
+# leer datos de prueba desde archivos CSV y JSON
+
 def read_users_csv():
     with open("data/users.csv",newline="") as file:
         reader = csv.DictReader(file)

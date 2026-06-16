@@ -2,6 +2,8 @@ import logging
 import pathlib
 from datetime import datetime
 
+# registrar eventos en un archivo de log con un timestamp único para cada ejecución
+
 logs_dir= pathlib.Path("logs")
 logs_dir.mkdir(exist_ok=True)
 
