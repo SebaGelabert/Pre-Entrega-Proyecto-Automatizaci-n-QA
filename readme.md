@@ -95,4 +95,3 @@ py -m pytest -v -s test/test_api.py
 py -m pytest -v test/test_login_csv.py
 py -m behave 
 
-Los reportes HTML se generan automáticamente en `report.html` al finalizar cada ejecución.
